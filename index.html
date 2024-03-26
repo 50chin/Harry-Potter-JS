@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/style/style.css" />
+    <script src="./src/script/app.js" defer type="module"></script>
+    <title>Harry Potter</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header__top">
+          <h1 class="header__title">Harry Potter</h1>
+          <p class="header__subtitle">
+            View all characters from the Harry Potter universe
+          </p>
+        </div>
+        <div class="header__search">
+          <div class="header__input">
+            <label for="">Name</label>
+            <input type="text" placeholder="Поиск" />
+          </div>
+          <div class="header__select">
+            <label for="">Shcool</label>
+            <select>
+              <option>All</option>
+              <option>Gryffindor</option>
+              <option>Slytherin</option>
+              <option>Hufflepuff</option>
+              <option>Ravenclaw</option>
+              <option>Not Found</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <div class="cards"></div>
+      </div>
+    </main>
+    <footer class="footer"><div class="container"></div></footer>
+  </body>
+</html>

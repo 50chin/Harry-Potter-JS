@@ -1,0 +1,40 @@
+.cards {
+  padding: 40px 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.card {
+  width: 334px;
+  height: 409px;
+  border: 1px solid rgb(222, 226, 230);
+  border-radius: 4px;
+  background: rgb(255, 255, 255);
+  padding-bottom: 25px;
+}
+
+.card__desc {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 25px 25px 0;
+  height: 69px;
+}
+
+.card__img {
+  width: 334px;
+  height: 192px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card__name {
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.card__bio {
+  font-weight: 400;
+  font-size: 16px;
+}
