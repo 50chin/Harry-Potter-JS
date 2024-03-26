@@ -17,7 +17,7 @@ body {
 }
 
 input {
-  width: 452px;
+  max-width: 452px;
   height: 38px;
   color: rgb(23, 24, 25);
   font-size: 16px;
@@ -32,8 +32,12 @@ select {
   font-size: 16px;
   font-weight: 400;
   line-height: 21px;
-  width: 216px;
+  max-width: 216px;
   height: 38px;
+}
+
+select:invalid {
+  color: gray;
 }
 
 label {
@@ -42,4 +46,10 @@ label {
   font-weight: 400;
   line-height: 28px;
   padding-bottom: 3px;
+}
+
+@media (max-width: 433px) {
+  select {
+    max-width: 420px;
+  }
 }

@@ -2,6 +2,7 @@ import { data } from "./data.js";
 const cardsNode = document.querySelector(".cards");
 const inputNode = document.querySelector("input");
 const selectNode = document.querySelector("select");
+const imgNode = document.querySelector(".card__img");
 
 selectNode.addEventListener("change", selectChoice);
 
@@ -54,7 +55,7 @@ function renderCards(data) {
     <p class="card__bio">Wand core: ${
       el.wand.core == "" ? "not found" : `${el.wand.core}`
     }</p>
-    <p class="card__bio">Alive: ${el.alive}</p>
+    <p class="card__bio">Alive: ${el.alive ? "yes" : "no"}</p>
     </div>
     `;
     cardsNode.append(card);
