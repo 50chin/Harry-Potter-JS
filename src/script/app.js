@@ -1,22 +1,41 @@
-import { data } from './data.js';
+// import { data } from './data.js';
 const cardsNode = document.querySelector('.cards');
 const inputNode = document.querySelector('input');
 const selectNode = document.querySelector('select');
-const imgNode = document.querySelector('.card__img');
+
+const API_URL =
+  'https://harry-potter-api-3a23c827ee69.herokuapp.com/api/characters';
+
+let data;
+let choice;
+
+async function getApi(API) {
+  try {
+    data = await fetch(API);
+    data = await data.json();
+    renderCards(data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+getApi(API_URL);
 
 selectNode.addEventListener('change', selectChoice);
-
-let choice;
-function selectChoice(evt) {
+async function selectChoice(evt) {
   let value = evt.target.value;
-  if (value === 'Not Found') {
-    choice = data.filter((el) => el.house.toLowerCase() === '');
-  } else if (value === 'All') {
-    choice = data;
-  } else {
-    choice = data.filter(
-      (el) => el.house.toLowerCase() === value.toLowerCase()
-    );
+  try {
+    if (value === 'Not Found') {
+      choice = await data.filter((el) => el.house.toLowerCase() === '');
+    } else if (value === 'All') {
+      choice = await data;
+    } else {
+      choice = await data.filter(
+        (el) => el.house.toLowerCase() === value.toLowerCase()
+      );
+    }
+  } catch (error) {
+    console.log(error);
   }
   renderCards(choice);
 }
@@ -25,7 +44,6 @@ inputNode.addEventListener('input', inputHandler);
 
 function inputHandler(evt) {
   let value = evt.target.value;
-
   const finder = choice.filter(
     (el) =>
       el.name.toLowerCase().includes(value.toLowerCase()) ||
@@ -34,12 +52,13 @@ function inputHandler(evt) {
   renderCards(finder);
 }
 
-function renderCards(data) {
+async function renderCards(data) {
   cardsNode.innerHTML = '';
-  data.forEach((el) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
+  try {
+    data.forEach((el) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
     <img class="card__img" ${
       el.image == false ? 'src="./src/img/person.jpeg"' : `src="${el.image}"`
     }/>
@@ -58,8 +77,9 @@ function renderCards(data) {
     <p class="card__bio">Alive: ${el.alive ? 'yes' : 'no'}</p>
     </div>
     `;
-    cardsNode.append(card);
-  });
+      cardsNode.append(card);
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
-
-renderCards(data);
