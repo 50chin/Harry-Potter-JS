@@ -1,33 +1,36 @@
 // import { data } from './data.js';
-const cardsNode = document.querySelector('.cards');
-const inputNode = document.querySelector('input');
-const selectNode = document.querySelector('select');
+const cardsNode = document.querySelector(".cards");
+const inputNode = document.querySelector("input");
+const selectNode = document.querySelector("select");
+const optionDisNode = document.querySelector("#option-disabled");
 
 const API_URL =
-  'https://harry-potter-api-3a23c827ee69.herokuapp.com/api/characters';
+  "https://harry-potter-api-3a23c827ee69.herokuapp.com/api/characters";
 
-let data = {};
-
+let data = [];
+let choice = [];
 async function getApi(API) {
   try {
     data = await fetch(API);
     data = await data.json();
+    choice = data;
     renderCards(data);
   } catch (error) {
     console.log(error);
   }
   return data;
 }
+
 getApi(API_URL);
 
-let choice = await getApi(API_URL);
-
-selectNode.addEventListener('change', selectChoice);
+selectNode.addEventListener("change", selectChoice);
 function selectChoice(evt) {
+  inputNode.value = "";
+  optionDisNode.style.display = "none";
   let value = evt.target.value;
-  if (value === 'Not Found') {
-    choice = data.filter((el) => el.house.toLowerCase() === '');
-  } else if (value === 'All') {
+  if (value === "Not Found") {
+    choice = data.filter((el) => el.house.toLowerCase() === "");
+  } else if (value === "All") {
     choice = data;
   } else {
     choice = data.filter(
@@ -37,7 +40,7 @@ function selectChoice(evt) {
   renderCards(choice);
 }
 
-inputNode.addEventListener('input', inputHandler);
+inputNode.addEventListener("input", inputHandler);
 
 function inputHandler(evt) {
   let value = evt.target.value;
@@ -50,10 +53,10 @@ function inputHandler(evt) {
 }
 
 function renderCards(data) {
-  cardsNode.innerHTML = '';
+  cardsNode.innerHTML = "";
   data.forEach((el) => {
-    const card = document.createElement('div');
-    card.className = 'card';
+    const card = document.createElement("div");
+    card.className = "card";
     card.innerHTML = `
     <img class="card__img" ${
       el.image == false ? 'src="./src/img/person.jpeg"' : `src="${el.image}"`
@@ -61,16 +64,16 @@ function renderCards(data) {
     <div class="card__desc">
     <h2 class="card__name">${el.name}</h2>
     <p class="card__bio">Actor: ${
-      el.actor == '' ? 'not found ' : `${el.actor}`
+      el.actor == "" ? "not found " : `${el.actor}`
     }</p>
     <p class="card__bio">Gender: ${el.gender}</p>
     <p class="card__bio">House: ${
-      el.house == '' ? 'not found' : `${el.house}`
+      el.house == "" ? "not found" : `${el.house}`
     }</p>
     <p class="card__bio">Wand core: ${
-      el.wand.core == '' ? 'not found' : `${el.wand.core}`
+      el.wand.core == "" ? "not found" : `${el.wand.core}`
     }</p>
-    <p class="card__bio">Alive: ${el.alive ? 'yes' : 'no'}</p>
+    <p class="card__bio">Alive: ${el.alive ? "yes" : "no"}</p>
     </div>
     `;
     cardsNode.append(card);
