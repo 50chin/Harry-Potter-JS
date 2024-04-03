@@ -6,8 +6,7 @@ const selectNode = document.querySelector('select');
 const API_URL =
   'https://harry-potter-api-3a23c827ee69.herokuapp.com/api/characters';
 
-let data;
-let choice;
+let data = {};
 
 async function getApi(API) {
   try {
@@ -17,25 +16,23 @@ async function getApi(API) {
   } catch (error) {
     console.log(error);
   }
+  return data;
 }
-
 getApi(API_URL);
 
+let choice = await getApi(API_URL);
+
 selectNode.addEventListener('change', selectChoice);
-async function selectChoice(evt) {
+function selectChoice(evt) {
   let value = evt.target.value;
-  try {
-    if (value === 'Not Found') {
-      choice = await data.filter((el) => el.house.toLowerCase() === '');
-    } else if (value === 'All') {
-      choice = await data;
-    } else {
-      choice = await data.filter(
-        (el) => el.house.toLowerCase() === value.toLowerCase()
-      );
-    }
-  } catch (error) {
-    console.log(error);
+  if (value === 'Not Found') {
+    choice = data.filter((el) => el.house.toLowerCase() === '');
+  } else if (value === 'All') {
+    choice = data;
+  } else {
+    choice = data.filter(
+      (el) => el.house.toLowerCase() === value.toLowerCase()
+    );
   }
   renderCards(choice);
 }
@@ -52,13 +49,12 @@ function inputHandler(evt) {
   renderCards(finder);
 }
 
-async function renderCards(data) {
+function renderCards(data) {
   cardsNode.innerHTML = '';
-  try {
-    data.forEach((el) => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
+  data.forEach((el) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
     <img class="card__img" ${
       el.image == false ? 'src="./src/img/person.jpeg"' : `src="${el.image}"`
     }/>
@@ -77,9 +73,6 @@ async function renderCards(data) {
     <p class="card__bio">Alive: ${el.alive ? 'yes' : 'no'}</p>
     </div>
     `;
-      cardsNode.append(card);
-    });
-  } catch (error) {
-    console.log(error);
-  }
+    cardsNode.append(card);
+  });
 }
